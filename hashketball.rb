@@ -155,15 +155,16 @@ def team_colors (team_name)
 end
 
 def team_names 
- teams = []
-  teams << game_hash[:home][:team_name]
-  teams << game_hash[:away][:team_name]
-  return teams
+  team_list = []
+    game_hash.each do |_, sub_cat|
+       team_list << sub_cat[:team_name]
+    end
+  return team_list
 end
 
 def player_numbers(team_name)
  jersey_numbers = []
-   game_hash.each do |team, sub_cat|
+   game_hash.each do |_, sub_cat|
     if sub_cat[:team_name] == team_name
       sub_cat[:players].each do |player_profile|
         jersey_numbers << player_profile[:number]
@@ -174,7 +175,7 @@ def player_numbers(team_name)
 end
 
 def player_stats (players_name)
-  game_hash.each do |team, sub_cat|
+  game_hash.each do |_, sub_cat|
     sub_cat[:players].each do |player_profile|
       if player_profile[:player_name] == players_name
       return player_profile
